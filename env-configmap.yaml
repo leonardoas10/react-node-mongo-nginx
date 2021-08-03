@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  MONGO_DB: fakedata
+  MONGO_FAKE_COLLECTION: fakedatas
+  MONGO_HOSTNAME: mongo-db
+  MONGO_PASSWORD: test
+  MONGO_PORT: "27017"
+  MONGO_USERNAME: leonardo
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mongo-db-env
+  name: env

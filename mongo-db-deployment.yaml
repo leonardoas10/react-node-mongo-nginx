@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mongo-db
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mongo-db
+    template:
+        metadata:
+            labels:
+                app: mongo-db
+        spec:
+            containers:
+                - name: mongo-db
+                  image: mongo
+                  env:
+                      - name: MONGO_INITDB_ROOT_USERNAME
+                        value: leonardo
+                      - name: MONGO_INITDB_ROOT_PASSWORD
+                        value: test
+                      - name: MONGO_INITDB_DATABASE
+                        value: fakedata
+                  volumeMounts:
+                      - mountPath: /data/db
+                        name: dbdata
+                      - mountPath: /docker-entrypoint-initdb.d/init.js
+                        name: mongo-init-db
+            restartPolicy: Always
+            volumes:
+                - name: mongo-init-db
+                  configMap:
+                      name: mongo-initdb
+                - name: dbdata
+                  hostPath:
+                      path: '/Users/databases/users'
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mongo-db-srv
+spec:
+    selector:
+        app: mongo-db
+    ports:
+        - name: db
+          protocol: TCP
+          port: 27017
+          targetPort: 27017

@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+    nginx-app:
+        container_name: nginx-app
+        restart: unless-stopped
+        build: ./nginx
+        depends_on:
+            - 'react-app'
+            - 'node-app'
+        ports:
+            - '55:80'
+        networks:
+            - app-network
+
+    react-app:
+        container_name: react-app
+        build: ./react-app
+        volumes:
+            - './react-app:/app'
+            - /app/node_modules
+        environment:
+            - PUBLIC_URL=http://127.0.0.1:8081
+        ports:
+            - '3000:3000'
+        networks:
+            - app-network
+        healthcheck:
+            test: ['CMD-SHELL', 'curl -f http://localhost:3000 || exit 1']
+            interval: 5s
+            timeout: 5s
+            retries: 3
+            start_period: 20s
+
+    node-app:
+        container_name: node-app
+        build: ./node-app
+        ports:
+            - '8080:8080'
+        env_file: .env
+        volumes:
+            - './node-app:/app'
+            - /app/node_modules
+        environment:
+            - MONGO_USERNAME=$MONGO_USERNAME
+            - MONGO_PASSWORD=$MONGO_PASSWORD
+            - MONGO_HOSTNAME=$MONGO_HOSTNAME
+            - MONGO_PORT=$MONGO_PORT
+            - MONGO_DB=$MONGO_DB
+        networks:
+            - app-network
+
+    mongo-db:
+        image: mongo:4.1.8-xenial
+        container_name: mongo-db
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+            - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+            - MONGO_INITDB_DATABASE=$MONGO_DB
+        volumes:
+            - dbdata:/data/db
+            - ./mongo-seed/init.js:/docker-entrypoint-initdb.d/init.js:ro
+        networks:
+            - app-network
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    dbdata:
