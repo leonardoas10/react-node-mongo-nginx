@@ -39,9 +39,7 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-    labels:
-        io.kompose.service: node-app
-    name: node-app
+    name: node-app-srv
 spec:
     ports:
         - name: '8080'

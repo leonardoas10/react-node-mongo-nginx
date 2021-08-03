@@ -13,9 +13,9 @@ spec:
                   - pathType: Prefix
                     path: /api
                     backend:
-                        serviceName: node-app
+                        serviceName: node-app-srv
                         servicePort: 8080
                   - path: /
                     backend:
-                        serviceName: react-app
+                        serviceName: react-app-srv
                         servicePort: 3000

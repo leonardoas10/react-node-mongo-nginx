@@ -32,7 +32,7 @@ kind: Service
 metadata:
     labels:
         io.kompose.service: react-app
-    name: react-app
+    name: react-app-srv
 spec:
     ports:
         - name: '3000'
