@@ -1,14 +1,15 @@
 apiVersion: v1
 data:
-  MONGO_DB: fakedata
-  MONGO_FAKE_COLLECTION: fakedatas
-  MONGO_HOSTNAME: mongo-db
-  MONGO_PASSWORD: test
-  MONGO_PORT: "27017"
-  MONGO_USERNAME: leonardo
+    MONGO_INITDB_ROOT_USERNAME: leonardo
+    MONGO_INITDB_ROOT_PASSWORD: test
+    MONGO_INITDB_DATABASE: fakedata
+    MONGO_DB: fakedata
+    MONGO_FAKE_COLLECTION: fakedatas
+    MONGO_HOSTNAME: mongo-db-srv
+    MONGO_PASSWORD: test
+    MONGO_PORT: '27017'
+    MONGO_USERNAME: leonardo
+    PUBLIC_URL: http://rnmn.dev/
 kind: ConfigMap
 metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: mongo-db-env
-  name: env
+    name: env

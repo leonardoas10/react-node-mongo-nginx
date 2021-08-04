@@ -22,8 +22,10 @@ spec:
                   name: react-app
                   env:
                       - name: PUBLIC_URL
-                        value: http://rnmn.dev/
-                #   resources: {}
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: PUBLIC_URL
             restartPolicy: Always
 status: {}
 ---

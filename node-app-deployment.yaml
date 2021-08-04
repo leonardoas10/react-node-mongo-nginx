@@ -20,17 +20,35 @@ spec:
             containers:
                 - env:
                       - name: MONGO_DB
-                        value: fakedata
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_DB
                       - name: MONGO_FAKE_COLLECTION
-                        value: fakedatas
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_FAKE_COLLECTION
                       - name: MONGO_HOSTNAME
-                        value: mongo-db-srv
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_HOSTNAME
                       - name: MONGO_PASSWORD
-                        value: test
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_PASSWORD
                       - name: MONGO_PORT
-                        value: '27017'
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_PORT
                       - name: MONGO_USERNAME
-                        value: leonardo
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_USERNAME
                   image: leonardoas10/node-app-rnmn:latest
                   name: node-app
             restartPolicy: Always

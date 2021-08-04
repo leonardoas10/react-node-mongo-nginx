@@ -17,11 +17,20 @@ spec:
                   image: mongo
                   env:
                       - name: MONGO_INITDB_ROOT_USERNAME
-                        value: leonardo
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_INITDB_ROOT_USERNAME
                       - name: MONGO_INITDB_ROOT_PASSWORD
-                        value: test
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_INITDB_ROOT_PASSWORD
                       - name: MONGO_INITDB_DATABASE
-                        value: fakedata
+                        valueFrom:
+                            configMapKeyRef:
+                                name: env
+                                key: MONGO_INITDB_DATABASE
                   volumeMounts:
                       - mountPath: /data/db
                         name: dbdata
@@ -35,7 +44,6 @@ spec:
                 - name: dbdata
                   hostPath:
                       path: '/Users/databases/users'
-
 ---
 apiVersion: v1
 kind: Service
