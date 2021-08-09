@@ -21,3 +21,44 @@ exports.get = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.login = async (req, res, next) => {
+    try {
+        const username = req.body.username;
+        const password = req.body.password;
+        res.status(200).json({ username: username, password: password });
+        // const user = await FakeData.findOne({ username: username });
+        // if (!user) {
+        //     const error = new Error(
+        //         'Validatiopn failed, entered data is incorrect'
+        //     );
+        //     error.statusCode = 401;
+        //     error.data = errors.array();
+        //     throw error;
+        // }
+        // const checkPassword = await bcrypt.compare(password, user.password);
+
+        // if (!checkPassword) {
+        //     const error = new Error('Wrong password');
+        //     error.statusCode = 401;
+        //     error.data = errors.array();
+        //     throw error;
+        // }
+        // const token = jwt.sign(
+        //     {
+        //         email: user.email,
+        //         userId: user._id.toString(),
+        //     },
+        //     'secret',
+        //     {
+        //         expiresIn: '1h',
+        //     }
+        // );
+        // res.status(200).json({ token: token, userId: user._id.toString() });
+    } catch (error) {
+        if (!error.statusCode) {
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+};

@@ -4,6 +4,7 @@ const fakeDataController = require('../controllers/fake-data');
 
 const router = express.Router();
 
-router.get('/fake-data', fakeDataController.get);
+router.get('/', fakeDataController.get);
+router.post('/login', fakeDataController.login);
 
 module.exports = router;
