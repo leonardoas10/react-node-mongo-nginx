@@ -13,7 +13,7 @@
 1. Instalarse [ Docker Engine ](https://docs.docker.com/engine/install/) :fire:
 2. Ir a la raiz del proyecto y ejecutar => `docker-compose build`
 3. Ir a la raiz del proyecto y ejecutar => `docker-compose up -d`
-4. Ir a la app [ App ](http://127.0.0.1:8081/)
+4. Ir a la app [ App ](http://127.0.0.1:55/)
 5. Empezar a leer código, interpretar funcionalidades y programar :smile:
 
 ## Instalación - K8S
@@ -25,7 +25,7 @@
 5. Ejecutar `minikube ip`, retorna la ip del cluster de K8S (Ej: 192.168.49.2). Copiarla e ir al archivo `hosts` y anadir el DNS para poder probar la app y el DNS para el dashboard, ya que el servicio ingress no funciona por IP sino por DNS. `cd /etc/` luego `sudo nano hosts`. Agregar `<IP COPIADA> rnmn.dev` y `<IP COPIADA> kb.dev`
 6. Ir a la raiz del proyecto y ejecutar en el siguiente orden:
 
--   `kubectl apply -f env-configmap.yaml`
+-   `kubectl apply -f configmap.yaml`
 -   `kubectl apply -f mongo-depl.yaml`
 -   `kubectl apply -f node-depl.yaml`
 -   `kubectl apply -f react-depl.yaml`

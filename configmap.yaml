@@ -13,3 +13,19 @@ data:
 kind: ConfigMap
 metadata:
     name: env
+---
+apiVersion: v1
+data:
+    init.js: |
+        db = new Mongo().getDB('fakedata');
+
+        db.createCollection('fakedatas', { capped: false });
+
+        db.fakedatas.insert([
+            { name: 'leonardo', password: '12345' },
+            { name: 'pepe', password: '67890' },
+        ]);
+kind: ConfigMap
+metadata:
+    creationTimestamp: null
+    name: mongo-initdb
