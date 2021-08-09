@@ -34,11 +34,19 @@ const Login = ({ title, buttonTitle }) => {
 
     const submit = async () => {
         try {
-            const response = await axios.post('/api/fake-data/login', {
+            const { data } = await axios.post('/api/fake-data/login', {
                 username: auth.username,
                 password: auth.password,
             });
-            console.log('response => ', response.data);
+            setAuth({ username: '', password: '' });
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('userId', data.userId);
+            const remainingMilliseconds = 60 * 60 * 1000;
+            const expiryDate = new Date(
+                new Date().getTime() + remainingMilliseconds
+            );
+            localStorage.setItem('expiryDate', expiryDate.toISOString());
+            window.location.replace('/api/fake-data');
         } catch (error) {
             console.error('Error submit() => ', error);
         }

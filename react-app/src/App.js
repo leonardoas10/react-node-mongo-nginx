@@ -5,6 +5,7 @@ import Login from './pages/Login';
 class App extends Component {
     state = {
         data: [],
+        token: '',
     };
 
     async componentDidMount() {
@@ -26,7 +27,7 @@ class App extends Component {
                             {this.state.data.map((dt) => (
                                 <li>
                                     <strong>
-                                        Name: {dt.name} | Password:
+                                        Name: {dt.username} | Password:
                                         {dt.password}
                                     </strong>
                                 </li>
