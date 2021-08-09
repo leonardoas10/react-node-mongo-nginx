@@ -22,14 +22,16 @@
 2. Instalarse [ Minikube ](https://minikube.sigs.k8s.io/docs/start/) :fire:
 3. Ir a la raiz del proyecto y ejecutar => `minikube start`
 4. Ir a la raiz del proyecto y ejecutar => `minikube addons enable ingress` (Habilita el usar ingress para redirigir el trafico a los distintos servicios)
-5. Ejecutar `minikube ip`, retorna la ip del cluster de K8S (Ej: 192.168.49.2). Copiarla e ir al archivo `hosts` y anadir el DNS para poder probar la app, ya que el servicio ingress no funciona por IP sino por DNS. `cd /etc/` luego `sudo nano hosts`. Agregarla `<IP COPIADA> rnmn.dev`
+5. Ejecutar `minikube ip`, retorna la ip del cluster de K8S (Ej: 192.168.49.2). Copiarla e ir al archivo `hosts` y anadir el DNS para poder probar la app y el DNS para el dashboard, ya que el servicio ingress no funciona por IP sino por DNS. `cd /etc/` luego `sudo nano hosts`. Agregar `<IP COPIADA> rnmn.dev` y `<IP COPIADA> kb.dev`
 6. Ir a la raiz del proyecto y ejecutar en el siguiente orden:
 
 -   `kubectl apply -f env-configmap.yaml`
--   `kubectl apply -f mongo-db-deployment.yaml`
--   `kubectl apply -f node-app-deployment.yaml`
--   `kubectl apply -f react-app-deployment.yaml`
+-   `kubectl apply -f mongo-depl.yaml`
+-   `kubectl apply -f node-depl.yaml`
+-   `kubectl apply -f react-depl.yaml`
+-   `kubectl apply -f dashboard-depl.yaml`
 -   `kubectl apply -f ingress-srv.yaml`
+-   `kubectl apply -f dashboard-ingress-srv.yaml`
 
 7. Ejecutar `kubectl get all`, se veran todos los deployments, pods, services y replicas.
    ![](k8s.png)
