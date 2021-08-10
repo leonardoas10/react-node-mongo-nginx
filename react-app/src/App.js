@@ -3,10 +3,22 @@ import axios from 'axios';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Credentials from './components/Credentials';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const App = () => {
     const [credentials, setCredentials] = useState([]);
     const [token, setToken] = useState('');
+    const [circular, setCircular] = useState(true);
+
+    useEffect(async () => {
+        try {
+            const { data } = await axios.get('/api/fake-data');
+            await setCredentials(data.fakeData);
+            setCircular(false);
+        } catch (error) {
+            console.error('Error => ', error);
+        }
+    }, []);
 
     const retrieveToken = async (tk) => {
         try {
@@ -26,26 +38,20 @@ const App = () => {
         }
     };
 
-    useEffect(async () => {
-        try {
-            const { data } = await axios.get('/api/fake-data');
-            console.log('INIT DATA => ', data.fakeData);
-            await setCredentials(data.fakeData);
-        } catch (error) {
-            console.error('Error => ', error);
-        }
-    }, []);
+    let initPage = <CircularProgress />;
 
-    let initPage = (
-        <>
-            <Credentials credentials={credentials}></Credentials>
-            <Login
-                title="Login"
-                buttonTitle="Sign In"
-                sendToken={retrieveToken}
-            ></Login>
-        </>
-    );
+    if (credentials.length > 0) {
+        initPage = (
+            <>
+                <Credentials credentials={credentials}></Credentials>
+                <Login
+                    title="Login"
+                    buttonTitle="Sign In"
+                    sendToken={retrieveToken}
+                ></Login>
+            </>
+        );
+    }
 
     if (token) {
         initPage = (
