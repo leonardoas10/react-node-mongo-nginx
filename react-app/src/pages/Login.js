@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Container,
     Card,
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Login = ({ title, buttonTitle }) => {
+const Login = ({ title, buttonTitle, sendToken }) => {
     const classes = useStyles();
     const [auth, setAuth] = useState({
         username: '',
@@ -39,6 +39,7 @@ const Login = ({ title, buttonTitle }) => {
                 password: auth.password,
             });
             setAuth({ username: '', password: '' });
+            sendToken(data.token);
             localStorage.setItem('token', data.token);
             localStorage.setItem('userId', data.userId);
             const remainingMilliseconds = 60 * 60 * 1000;
@@ -46,7 +47,7 @@ const Login = ({ title, buttonTitle }) => {
                 new Date().getTime() + remainingMilliseconds
             );
             localStorage.setItem('expiryDate', expiryDate.toISOString());
-            window.location.replace('/api/fake-data');
+            // window.location.replace('/api/fake-data');
         } catch (error) {
             console.error('Error submit() => ', error);
         }
