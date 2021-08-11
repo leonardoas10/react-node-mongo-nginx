@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Credentials from './components/Credentials';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Layout from './Layout';
 
 const App = () => {
     const [credentials, setCredentials] = useState([]);
@@ -66,7 +67,7 @@ const App = () => {
         );
     }
 
-    return <>{initPage}</>;
+    return <Layout>{initPage}</Layout>;
 };
 
 export default App;
