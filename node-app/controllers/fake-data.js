@@ -33,7 +33,6 @@ exports.login = async (req, res, next) => {
                 'Validatiopn failed, entered data is incorrect'
             );
             error.statusCode = 401;
-            error.data = errors.array();
             throw error;
         }
         // const checkPassword = await bcrypt.compare(password, user.password);
@@ -55,6 +54,27 @@ exports.login = async (req, res, next) => {
             }
         );
         res.status(200).json({ token: token, userId: user._id.toString() });
+    } catch (error) {
+        if (!error.statusCode) {
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+};
+
+exports.user = async (req, res, next) => {
+    try {
+        const userId = req.body.userId;
+        console.log('userId +> ', userId);
+        const user = await FakeData.findOne({ _id: userId });
+        if (!user) {
+            const error = new Error(
+                'Validatiopn failed, entered data is incorrect'
+            );
+            error.statusCode = 401;
+            throw error;
+        }
+        res.status(200).json({ user: user });
     } catch (error) {
         if (!error.statusCode) {
             error.statusCode = 500;

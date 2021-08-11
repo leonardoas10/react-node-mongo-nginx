@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Login = ({ title, buttonTitle, sendToken }) => {
+const Login = ({ title, buttonTitle, sendTokenAndUserId }) => {
     const classes = useStyles();
     const [auth, setAuth] = useState({
         username: '',
@@ -39,7 +39,7 @@ const Login = ({ title, buttonTitle, sendToken }) => {
                 password: auth.password,
             });
             setAuth({ username: '', password: '' });
-            sendToken(data.token);
+            sendTokenAndUserId(data.token, data.userId);
             localStorage.setItem('token', data.token);
             localStorage.setItem('userId', data.userId);
             const remainingMilliseconds = 60 * 60 * 1000;

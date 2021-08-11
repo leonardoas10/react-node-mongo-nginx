@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const App = () => {
     const [credentials, setCredentials] = useState([]);
     const [token, setToken] = useState('');
+    const [userId, setUserId] = useState('');
     const [circular, setCircular] = useState(true);
 
     useEffect(async () => {
@@ -20,9 +21,10 @@ const App = () => {
         }
     }, []);
 
-    const retrieveToken = async (tk) => {
+    const retrieveTokenAndUserId = async (tk, userId) => {
         try {
-            console.log('token from nodejs => ', tk);
+            console.log('token from nodejs => ', tk, userId);
+            await setUserId(userId);
             await setToken(tk);
         } catch (error) {
             console.error('retrieveToken() => ', error);
@@ -47,7 +49,7 @@ const App = () => {
                 <Login
                     title="Login"
                     buttonTitle="Sign In"
-                    sendToken={retrieveToken}
+                    sendTokenAndUserId={retrieveTokenAndUserId}
                 ></Login>
             </>
         );
@@ -56,7 +58,10 @@ const App = () => {
     if (token) {
         initPage = (
             <>
-                <Dashboard logout={handleLogout}></Dashboard>
+                <Dashboard
+                    userId={userId}
+                    handleLogout={handleLogout}
+                ></Dashboard>
             </>
         );
     }
