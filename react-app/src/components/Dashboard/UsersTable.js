@@ -7,8 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
+import UserEdit from './UserEdit';
 
 const columns = [
     { id: 'username', label: 'Name', minWidth: 170 },
@@ -76,16 +75,10 @@ const UsersTable = ({ rows }) => {
                                 >
                                     {columns.map((column) => {
                                         const value = row[column.id];
-                                        console.log(value);
                                         return (
                                             <TableCell key={column.id}>
                                                 {column.id === 'edit' ? (
-                                                    <Fab
-                                                        color="secondary"
-                                                        aria-label="edit"
-                                                    >
-                                                        <EditIcon />
-                                                    </Fab>
+                                                    <UserEdit user={row} />
                                                 ) : (
                                                     value
                                                 )}
