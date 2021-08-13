@@ -1,9 +1,5 @@
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
+import { Container, Grid, Box, Typography, Link } from '@material-ui/core/';
 
 const useStyles = makeStyles({
     FixedFooter: {
@@ -13,7 +9,8 @@ const useStyles = makeStyles({
         left: '0',
         bottom: '0',
         height: '140px',
-        width: '100%',
+        width: '96.8%',
+        margin: '0 0.5rem 0 0.5rem',
     },
 });
 
@@ -31,7 +28,9 @@ const Footer = () => {
                 <Container maxWidth="lg">
                     <Grid container spacing={5}>
                         <Grid item xs={12} sm={4}>
-                            <Box borderBottom={2}>K8S</Box>
+                            <Box borderBottom={2}>
+                                <Typography>K8S</Typography>
+                            </Box>
                             <Box>
                                 <Link
                                     href="https://kubernetes.io/docs/tasks/tools/"
@@ -41,13 +40,20 @@ const Footer = () => {
                                 </Link>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit">
-                                    <Typography>Roll</Typography>
+                                <Link
+                                    href="https://www.weave.works/blog/6-business-benefits-of-kubernetes"
+                                    color="inherit"
+                                >
+                                    <Typography>
+                                        Benefits for business
+                                    </Typography>
                                 </Link>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Box borderBottom={2}>Docker</Box>
+                            <Box borderBottom={2}>
+                                <Typography>Docker</Typography>
+                            </Box>
                             <Box>
                                 <Link
                                     href="https://docs.docker.com/desktop/"
@@ -59,21 +65,32 @@ const Footer = () => {
                                 </Link>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit">
-                                    <Typography>Roll</Typography>
+                                <Link
+                                    href="https://www.bmc.com/blogs/kubernetes-vs-docker-swarm/#:~:text=Kubernetes%20focuses%20on%20open%2Dsource,deploy%20and%20easy%20to%20manage."
+                                    color="inherit"
+                                >
+                                    <Typography>K8S or Swarm</Typography>
                                 </Link>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Box borderBottom={2}>Academind</Box>
+                            <Box borderBottom={2}>
+                                <Typography>CI/CD</Typography>
+                            </Box>
                             <Box>
-                                <Link href="/" color="inherit">
-                                    <Typography>Roll</Typography>
+                                <Link
+                                    href="https://www.infoworld.com/article/3271126/what-is-cicd-continuous-integration-and-continuous-delivery-explained.html"
+                                    color="inherit"
+                                >
+                                    <Typography>What is it?</Typography>
                                 </Link>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit">
-                                    <Typography>Roll</Typography>
+                                <Link
+                                    href="https://docs.github.com/en/actions/guides/setting-up-continuous-integration-using-workflow-templates"
+                                    color="inherit"
+                                >
+                                    <Typography>Github Actions</Typography>
                                 </Link>
                             </Box>
                         </Grid>
