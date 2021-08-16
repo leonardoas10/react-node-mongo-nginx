@@ -5,7 +5,7 @@ const Credentials = ({ credentials }) => {
                 Data from Mongo DB:
                 <ul>
                     {credentials.map((dt) => (
-                        <li>
+                        <li key={dt._id}>
                             <strong>Name: {dt.username} | </strong>
                             <strong>Password: {dt.password}</strong>
                         </li>

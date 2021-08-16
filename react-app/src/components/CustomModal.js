@@ -1,6 +1,7 @@
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Fade, Backdrop, TextField } from '@material-ui/core/';
+import { Typography, Fab, Fade, Backdrop, TextField } from '@material-ui/core/';
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -15,11 +16,19 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
+    title: {
+        margin: '0.5rem 0 1.5rem 0',
+    },
+    TextField: {
+        textTransform: 'capitalize',
+    },
+    SaveIcon: {
+        margin: '0px 8px',
+    },
 }));
 
 const CustomModal = ({ content, open, handleModal, title }) => {
     const classes = useStyles();
-    console.log('content => ', content);
     return (
         <Modal
             className={classes.modal}
@@ -33,15 +42,33 @@ const CustomModal = ({ content, open, handleModal, title }) => {
         >
             <Fade in={open}>
                 <div className={classes.paper}>
-                    <Typography variant="h4">{title}</Typography>
-                    {Object.keys(content).map((keyName, i) => (
-                        <TextField
-                            id="outlined-basic"
-                            label={keyName}
-                            variant="outlined"
-                            value={content[keyName]}
-                        />
-                    ))}
+                    <Typography
+                        className={classes.title}
+                        variant="h5"
+                        align="center"
+                    >
+                        {title}
+                    </Typography>
+                    {Object.keys(content).map((keyName, i) => {
+                        if (keyName !== '_id') {
+                            return (
+                                <TextField
+                                    key={i}
+                                    label={keyName}
+                                    variant="outlined"
+                                    value={content[keyName]}
+                                    className={classes.TextField}
+                                />
+                            );
+                        }
+                    })}
+                    <Fab
+                        className={classes.SaveIcon}
+                        color="secondary"
+                        aria-label="edit"
+                    >
+                        <SaveIcon />
+                    </Fab>
                 </div>
             </Fade>
         </Modal>
