@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Fab, Fade, Backdrop, TextField } from '@material-ui/core/';
@@ -27,8 +28,36 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CustomModal = ({ content, open, handleModal, title }) => {
+const CustomModalEdit = ({ content, open, handleModal, title, handleEdit }) => {
     const classes = useStyles();
+    const [payload, setPayload] = useState({});
+
+    useEffect(async () => {
+        try {
+            if (open) {
+                await Object.keys(content).map(async (keyName, i) => {
+                    setPayload((prevState) => ({
+                        ...prevState,
+                        [keyName]: content[keyName],
+                    }));
+                });
+            }
+        } catch (error) {
+            console.error('Error CustomModalEdit useEffect() => ', error);
+        }
+    }, [open]);
+
+    const handleInput = (e) => {
+        try {
+            setPayload((prevState) => ({
+                ...prevState,
+                [e.target.name]: e.target.value,
+            }));
+        } catch (error) {
+            console.error('handleInput() => ', error);
+        }
+    };
+
     return (
         <Modal
             className={classes.modal}
@@ -49,14 +78,16 @@ const CustomModal = ({ content, open, handleModal, title }) => {
                     >
                         {title}
                     </Typography>
-                    {Object.keys(content).map((keyName, i) => {
+                    {Object.keys(payload).map((keyName, i) => {
                         if (keyName !== '_id') {
                             return (
                                 <TextField
                                     key={i}
                                     label={keyName}
                                     variant="outlined"
-                                    value={content[keyName]}
+                                    onChange={handleInput}
+                                    name={keyName}
+                                    value={payload[keyName]}
                                     className={classes.TextField}
                                 />
                             );
@@ -66,6 +97,7 @@ const CustomModal = ({ content, open, handleModal, title }) => {
                         className={classes.SaveIcon}
                         color="secondary"
                         aria-label="edit"
+                        onClick={() => handleEdit(payload)}
                     >
                         <SaveIcon />
                     </Fab>
@@ -75,4 +107,4 @@ const CustomModal = ({ content, open, handleModal, title }) => {
     );
 };
 
-export default CustomModal;
+export default CustomModalEdit;

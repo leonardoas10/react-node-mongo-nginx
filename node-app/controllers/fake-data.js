@@ -82,3 +82,57 @@ exports.user = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.editUser = async (req, res, next) => {
+    try {
+        const payload = req.body.payload;
+        console.log('Payload => ', payload);
+        const user = await FakeData.findOne({ _id: payload._id });
+        if (!user) {
+            const error = new Error(
+                'Validatiopn failed, entered data is incorrect'
+            );
+            error.statusCode = 401;
+            throw error;
+        }
+
+        user.username = payload.username;
+        user.password = payload.password;
+        user.country = payload.country;
+        user.age = payload.age;
+        user.role = payload.role;
+        user.hobby = payload.hobby;
+
+        user.save();
+
+        res.status(200).json({ user: user });
+
+        // Product.findById(prodId)
+        // .then(product => {
+        //   if (product.userId.toString() !== req.user._id.toString()) {
+        //     return res.redirect('/');
+        //   }
+        //   product.title = updatedTitle;
+        //   product.price = updatedPrice;
+        //   product.description = updatedDesc;
+        //   if (image) {
+        //     fileHelper.deleteFile(product.imageUrl);
+        //     product.imageUrl = image.path;
+        //   }
+        //   return product.save().then(result => {
+        //     console.log('UPDATED PRODUCT!');
+        //     res.redirect('/admin/products');
+        //   });
+        // })
+        // .catch(err => {
+        //   const error = new Error(err);
+        //   error.httpStatusCode = 500;
+        //   return next(error);
+        // });
+    } catch (error) {
+        if (!error.statusCode) {
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+};

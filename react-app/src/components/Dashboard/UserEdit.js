@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
-import CustomModal from '../CustomModal';
+import CustomModalEdit from '../CustomModalEdit';
 
 const UserEdit = ({ user }) => {
     const [open, setOpen] = useState(false);
@@ -10,16 +11,24 @@ const UserEdit = ({ user }) => {
         setOpen(!open);
     };
 
+    const handleEdit = async (payload) => {
+        const response = await axios.post('api/fake-data/edit-user', {
+            payload,
+        });
+        console.log('Rersposne => ', response.data);
+    };
+
     return (
         <>
             <Fab color="secondary" aria-label="edit" onClick={handleModal}>
                 <EditIcon />
             </Fab>
-            <CustomModal
+            <CustomModalEdit
                 title="Editar Usuario"
                 open={open}
                 content={user}
                 handleModal={handleModal}
+                handleEdit={handleEdit}
             />
         </>
     );
