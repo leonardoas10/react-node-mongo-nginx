@@ -24,7 +24,7 @@ const UserEdit = ({ user }) => {
                 <EditIcon />
             </Fab>
             <CustomModalEdit
-                title="Editar Usuario"
+                title="Edit User"
                 open={open}
                 content={user}
                 handleModal={handleModal}
