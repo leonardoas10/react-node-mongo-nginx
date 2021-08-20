@@ -1,27 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import UsersTable from './UsersTable';
+import { Context } from '../../store/store';
 
 const Content = () => {
-    const [circular, setCircular] = useState(true);
-
-    const [rows, setRows] = useState([]);
-
-    useEffect(async () => {
-        try {
-            const { data } = await axios.get('/api/fake-data');
-            await setRows(data.fakeData);
-            setCircular(false);
-        } catch (error) {
-            console.error('Error => ', error);
-        }
-    }, []);
+    const users = useContext(Context).users;
+    const circular = useState(users ? false : true)[0];
 
     let usersTable = <CircularProgress />;
 
     if (!circular) {
-        usersTable = <UsersTable rows={rows} />;
+        usersTable = <UsersTable rows={users} />;
     }
 
     return <>{usersTable}</>;

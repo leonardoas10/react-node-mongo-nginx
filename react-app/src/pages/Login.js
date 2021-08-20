@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import {
     Container,
@@ -9,6 +9,7 @@ import {
     Button,
     makeStyles,
 } from '@material-ui/core';
+import { Context } from '../store/store';
 
 const useStyles = makeStyles({
     LoginCardContent: {
@@ -20,12 +21,13 @@ const useStyles = makeStyles({
     },
 });
 
-const Login = ({ title, buttonTitle, sendTokenAndUserId }) => {
+const Login = ({ title, buttonTitle }) => {
     const classes = useStyles();
     const [auth, setAuth] = useState({
         username: '',
         password: '',
     });
+    const retrieveTokenAndUserId = useContext(Context).retrieveTokenAndUserId;
 
     const handleOnChange = (event) => {
         const { name, value } = event.target;
@@ -39,7 +41,7 @@ const Login = ({ title, buttonTitle, sendTokenAndUserId }) => {
                 password: auth.password,
             });
             setAuth({ username: '', password: '' });
-            sendTokenAndUserId(data.token, data.userId);
+            retrieveTokenAndUserId(data.token, data.userId);
             localStorage.setItem('token', data.token);
             localStorage.setItem('userId', data.userId);
             const remainingMilliseconds = 60 * 60 * 1000;
@@ -47,7 +49,6 @@ const Login = ({ title, buttonTitle, sendTokenAndUserId }) => {
                 new Date().getTime() + remainingMilliseconds
             );
             localStorage.setItem('expiryDate', expiryDate.toISOString());
-            // window.location.replace('/api/fake-data');
         } catch (error) {
             console.error('Error submit() => ', error);
         }

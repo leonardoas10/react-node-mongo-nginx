@@ -1,4 +1,8 @@
-const Credentials = ({ credentials }) => {
+import { useContext } from 'react';
+import { Context } from '../store/store';
+
+const Credentials = () => {
+    const credentials = useContext(Context).users;
     return (
         <div>
             <span>

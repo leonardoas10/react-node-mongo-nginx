@@ -2,10 +2,10 @@ import React from 'react';
 import NavBar from '../components/Dashboard/NavBar';
 import Content from '../components/Dashboard/Content';
 
-const Dashboard = ({ token, userId, handleLogout }) => {
+const Dashboard = () => {
     return (
         <>
-            <NavBar userId={userId} handleLogout={handleLogout} />
+            <NavBar />
             <Content />
         </>
     );

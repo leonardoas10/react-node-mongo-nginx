@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -19,6 +19,7 @@ import {
     Box,
     Link,
 } from '@material-ui/core/';
+import { Context } from '../../store/store';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,11 +41,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NavBar = ({ userId, handleLogout }) => {
+const NavBar = () => {
     const classes = useStyles();
     const [drawer, setDrawer] = useState(false);
     const [userIcon, setUserIcon] = useState(null);
     const [userInfo, setUserInfo] = useState([]);
+    const handleLogout = useContext(Context).handleLogout;
+    const userId = useContext(Context).userId;
 
     useEffect(async () => {
         try {

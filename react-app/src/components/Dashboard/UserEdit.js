@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import CustomModalEdit from '../CustomModalEdit';
+import { Context } from '../../store/store';
 
 const UserEdit = ({ user }) => {
     const [open, setOpen] = useState(false);
+    const handleEdit = useContext(Context).handleUserEdit;
 
     const handleModal = () => {
         setOpen(!open);
-    };
-
-    const handleEdit = async (payload) => {
-        const response = await axios.post('api/fake-data/edit-user', {
-            payload,
-        });
-        console.log('Rersposne => ', response.data);
     };
 
     return (
