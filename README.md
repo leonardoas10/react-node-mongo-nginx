@@ -78,7 +78,7 @@
 -   `kubectl apply -f dashboard-ingress-srv.yaml`
 
 7. Run `kubectl get all`, you will see all the deployments, pods, services and replicas.
-   ! [] (images / k8s.png)
+   ![](images/k8s.png)
 8. Go to the app [App](http://rnmn.dev/)
 9. Start reading code, interpreting functionalities and programming: smile:
 
