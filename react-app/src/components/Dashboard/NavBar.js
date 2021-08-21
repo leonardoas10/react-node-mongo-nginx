@@ -113,6 +113,7 @@ const NavBar = () => {
                                     : 'https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/'
                             }
                             color="inherit"
+                            target="_blank"
                         >
                             <Typography variant="h6">K8S Dashboard</Typography>
                         </Link>

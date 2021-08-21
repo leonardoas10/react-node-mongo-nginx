@@ -42,3 +42,21 @@
 
 Login.
 ![](images/login.png)
+
+Dashboard.
+![](images/dashboard.png)
+
+Modal Edit User.
+![](images/edituser.png)
+
+Kubernetes Dashboard - Link.
+![](images/kdlink.png)
+
+Kubernetes Dashboard - Login.
+![](images/kdlogin.png)
+
+Kubernetes Dashboard - Pods.
+![](images/kdpods.png)
+
+Kubernetes Dashboard - Describe a Pod.
+![](images/kbdescribepod.png)
