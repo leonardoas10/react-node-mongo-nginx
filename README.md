@@ -7,6 +7,7 @@
 -   Se puede correr la app con `docker-compose` y/o `minikube`
 -   Al correrla con `docker-compose` cuenta con un contenedor Nginx con el objectivo de hacer `reverse-proxy` hacia los contenedores ReactJs o NodeJs; de esta manera se asegura la convivencia de los distintos request, bien sea con `docker-compose` y/o `minikube`
 -   La base de dato Mongo, importa automatico bien sea en el `docker-compose` y/o `minikube`, datos de prueba.
+-   Al usar minikube, se puede tener acceso al [ Kubernetes Dashboard ](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/), en el se puede visualizar todos los services, pods, namespaces, configmap, dinamicas, etc... se puede utilizar el boton 'skip' para saltarse el token del login.
 
 ## Instalación - Docker-Compose
 
