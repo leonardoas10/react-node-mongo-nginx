@@ -108,8 +108,8 @@ const NavBar = () => {
                     <Box className={classes.menuButton}>
                         <Link
                             href={
-                                process.env.KD_URL
-                                    ? process.env.KD_URL
+                                process.env.REACT_APP_KD_URL
+                                    ? process.env.REACT_APP_KD_URL
                                     : 'https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/'
                             }
                             color="inherit"

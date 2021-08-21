@@ -26,11 +26,11 @@ spec:
                             configMapKeyRef:
                                 name: env
                                 key: PUBLIC_URL
-                      - name: KD_URL
+                      - name: REACT_APP_KD_URL
                         valueFrom:
                             configMapKeyRef:
                                 name: env
-                                key: KD_URL
+                                key: REACT_APP_KD_URL
             restartPolicy: Always
 status: {}
 ---
