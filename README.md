@@ -57,13 +57,13 @@
 1. Install [ Docker Engine ](https://docs.docker.com/engine/install/) :fire:
 2. Go to the root of the project and run => `docker-compose build`
 3. Go to the root of the project and run => `docker-compose up -d`
-4. Go to the app [App] (http://127.0.0.1:55/)
+4. Go to the app [ App ](http://127.0.0.1:55/)
 5. Start reading code, interpreting functionalities and programming: smile:
 
 ## Instalation - K8S
 
-1. Install [Docker Engine] (https://docs.docker.com/engine/install/): fire:
-2. Install [Minikube] (https://minikube.sigs.k8s.io/docs/start/): fire:
+1. Install [Docker Engine](https://docs.docker.com/engine/install/): fire:
+2. Install [Minikube](https://minikube.sigs.k8s.io/docs/start/): fire:
 3. Go to the root of the project and execute => `minikube start`
 4. Go to the root of the project and execute => `minikube addons enable ingress` (Enables using ingress to redirect traffic to the different services)
 5. Execute `minikube ip`, it returns the IP of the K8S cluster (Ex: 192.168.49.2). Copy it and go to the `hosts` file and add the DNS to be able to test the app and the DNS for the dashboard, since the ingress service does not work by IP but by DNS. `cd / etc /` then `sudo nano hosts`. Add `<COPIED IP> rnmn.dev` and` <COPIED IP> kb.dev`
@@ -79,7 +79,7 @@
 
 7. Run `kubectl get all`, you will see all the deployments, pods, services and replicas.
    ! [] (images / k8s.png)
-8. Go to the app [App] (http://rnmn.dev/)
+8. Go to the app [App](http://rnmn.dev/)
 9. Start reading code, interpreting functionalities and programming: smile:
 
 ## Screenshots
