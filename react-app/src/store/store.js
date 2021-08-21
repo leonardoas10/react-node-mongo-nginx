@@ -8,12 +8,15 @@ export const Context = React.createContext({
     retrieveTokenAndUserId: (tk, userId) => {},
     handleLogout: () => {},
     handleUserEdit: (payload) => {},
+    customModalEditOpen: false,
+    handleCustomModalEditOpen: () => {},
 });
 
 export default (props) => {
     const [users, setUsers] = useState([]);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userId, setUserId] = useState(localStorage.getItem('userId'));
+    const [customModalEditOpen, setCustomModalEditOpen] = useState(false);
 
     useEffect(async () => {
         try {
@@ -22,7 +25,7 @@ export default (props) => {
         } catch (error) {
             console.error('Error => ', error);
         }
-    }, [users]);
+    }, []);
 
     const retrieveTokenAndUserId = async (tk, userId) => {
         try {
@@ -34,10 +37,18 @@ export default (props) => {
     };
 
     const handleUserEdit = async (payload) => {
-        const response = await axios.post('api/fake-data/edit-user', {
+        const { data } = await axios.post('api/fake-data/edit-user', {
             payload,
         });
-        console.log('Response => ', response.data);
+        let userIndex = users.findIndex((user) => user._id == data.user._id);
+        const updatedUsers = [...users];
+        updatedUsers[userIndex] = data.user;
+        await setUsers(updatedUsers);
+        handleCustomModalEditOpen();
+    };
+
+    const handleCustomModalEditOpen = () => {
+        setCustomModalEditOpen(!customModalEditOpen);
     };
 
     const handleLogout = async () => {
@@ -60,6 +71,8 @@ export default (props) => {
                 retrieveTokenAndUserId: retrieveTokenAndUserId,
                 handleUserEdit: handleUserEdit,
                 handleLogout: handleLogout,
+                customModalEditOpen: customModalEditOpen,
+                handleCustomModalEditOpen: handleCustomModalEditOpen,
             }}
         >
             {props.children}

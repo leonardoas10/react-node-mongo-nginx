@@ -5,23 +5,25 @@ import CustomModalEdit from '../CustomModalEdit';
 import { Context } from '../../store/store';
 
 const UserEdit = ({ user }) => {
-    const [open, setOpen] = useState(false);
     const handleEdit = useContext(Context).handleUserEdit;
-
-    const handleModal = () => {
-        setOpen(!open);
-    };
+    const customModalEditOpen = useContext(Context).customModalEditOpen;
+    const handleCustomModalEditOpen =
+        useContext(Context).handleCustomModalEditOpen;
 
     return (
         <>
-            <Fab color="secondary" aria-label="edit" onClick={handleModal}>
+            <Fab
+                color="secondary"
+                aria-label="edit"
+                onClick={handleCustomModalEditOpen}
+            >
                 <EditIcon />
             </Fab>
             <CustomModalEdit
                 title="Edit User"
-                open={open}
+                open={customModalEditOpen}
                 content={user}
-                handleModal={handleModal}
+                handleModal={handleCustomModalEditOpen}
                 handleEdit={handleEdit}
             />
         </>

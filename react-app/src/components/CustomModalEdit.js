@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Fab, Fade, Backdrop, TextField } from '@material-ui/core/';
+import {
+    Typography,
+    Fab,
+    Fade,
+    Backdrop,
+    TextField,
+    Grid,
+} from '@material-ui/core/';
 import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
     TextField: {
         textTransform: 'capitalize',
+        margin: '0.5rem',
     },
     SaveIcon: {
         margin: '0px 8px',
@@ -71,36 +79,43 @@ const CustomModalEdit = ({ content, open, handleModal, title, handleEdit }) => {
         >
             <Fade in={open}>
                 <div className={classes.paper}>
-                    <Typography
-                        className={classes.title}
-                        variant="h5"
-                        align="center"
+                    <Grid
+                        container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
                     >
-                        {title}
-                    </Typography>
-                    {Object.keys(payload).map((keyName, i) => {
-                        if (keyName !== '_id') {
-                            return (
-                                <TextField
-                                    key={i}
-                                    label={keyName}
-                                    variant="outlined"
-                                    onChange={handleInput}
-                                    name={keyName}
-                                    value={payload[keyName]}
-                                    className={classes.TextField}
-                                />
-                            );
-                        }
-                    })}
-                    <Fab
-                        className={classes.SaveIcon}
-                        color="secondary"
-                        aria-label="edit"
-                        onClick={() => handleEdit(payload)}
-                    >
-                        <SaveIcon />
-                    </Fab>
+                        <Typography
+                            className={classes.title}
+                            variant="h5"
+                            align="center"
+                        >
+                            {title}
+                        </Typography>
+                        {Object.keys(payload).map((keyName, i) => {
+                            if (keyName !== '_id') {
+                                return (
+                                    <TextField
+                                        key={i}
+                                        label={keyName}
+                                        variant="outlined"
+                                        onChange={handleInput}
+                                        name={keyName}
+                                        value={payload[keyName]}
+                                        className={classes.TextField}
+                                    />
+                                );
+                            }
+                        })}
+                        <Fab
+                            className={classes.SaveIcon}
+                            color="secondary"
+                            aria-label="edit"
+                            onClick={() => handleEdit(payload)}
+                        >
+                            <SaveIcon />
+                        </Fab>
+                    </Grid>
                 </div>
             </Fade>
         </Modal>

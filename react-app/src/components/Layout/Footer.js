@@ -9,8 +9,7 @@ const useStyles = makeStyles({
         left: '0',
         bottom: '0',
         height: '140px',
-        width: '96.8%',
-        margin: '0 0.5rem 0 0.5rem',
+        width: '100%',
     },
 });
 
