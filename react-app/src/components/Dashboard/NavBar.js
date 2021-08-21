@@ -106,7 +106,14 @@ const NavBar = () => {
                         Learning K8S & Docker
                     </Typography>
                     <Box className={classes.menuButton}>
-                        <Link href="/" color="inherit">
+                        <Link
+                            href={
+                                process.env.KD_URL
+                                    ? process.env.KD_URL
+                                    : 'https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/'
+                            }
+                            color="inherit"
+                        >
                             <Typography variant="h6">K8S Dashboard</Typography>
                         </Link>
                     </Box>

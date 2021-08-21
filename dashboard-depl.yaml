@@ -154,6 +154,23 @@ subjects:
       namespace: kubernetes-dashboard
 
 ---
+# Esto es para darle acceso total al Dashboard, no es recomendado para producción.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: cluster-admin
+subjects:
+    - kind: ServiceAccount
+      name: kubernetes-dashboard
+      namespace: kubernetes-dashboard
+
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -183,8 +200,6 @@ spec:
                       - --auto-generate-certificates
                       - --namespace=kubernetes-dashboard
                       - --enable-skip-login
-                      - --enable-insecure-login
-                      - --disable-settings-authorizer
                       # Uncomment the following line to manually specify Kubernetes API server Host
                       # If not specified, Dashboard will attempt to auto discover the API server and connect
                       # to it. Uncomment only if the default does not work.
@@ -288,22 +303,3 @@ spec:
             volumes:
                 - name: tmp-volume
                   emptyDir: {}
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-    name: dashboard-admin
-    namespace: kubernetes-dashboard
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-    name: dashboard-admin
-roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: cluster-admin
-subjects:
-    - kind: ServiceAccount
-      name: dashboard-admin
-      namespace: kubernetes-dashboard
