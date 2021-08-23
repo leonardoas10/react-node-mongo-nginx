@@ -3,8 +3,10 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Credentials from './components/Credentials';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Layout from './Layout';
+import Layout from './pages/Layout';
 import { Context } from './store/store';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     const users = useContext(Context).users;
@@ -29,7 +31,12 @@ const App = () => {
         );
     }
 
-    return <Layout>{initPage}</Layout>;
+    return (
+        <Layout>
+            <ToastContainer />
+            {initPage}
+        </Layout>
+    );
 };
 
 export default App;

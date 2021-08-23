@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const Context = React.createContext({
     users: [],
@@ -10,6 +11,7 @@ export const Context = React.createContext({
     handleUserEdit: (payload) => {},
     customModalEditOpen: false,
     handleCustomModalEditOpen: () => {},
+    toastrNotify: (message, type) => {},
 });
 
 export default (props) => {
@@ -17,15 +19,32 @@ export default (props) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [userId, setUserId] = useState(localStorage.getItem('userId'));
     const [customModalEditOpen, setCustomModalEditOpen] = useState(false);
+    const [expiryDate, setExpiryDate] = useState(
+        localStorage.getItem('expiryDate')
+    );
 
     useEffect(async () => {
         try {
+            if (new Date(expiryDate) <= new Date()) {
+                console.log('leo');
+                handleLogout(true);
+            } else {
+                setAutoLogout(expiryDate);
+            }
             const { data } = await axios.get('/api/fake-data');
             await setUsers(data.fakeData);
         } catch (error) {
             console.error('Error => ', error);
         }
     }, []);
+
+    const toastrNotify = (message, type) => {
+        try {
+            toast(message, { type: type });
+        } catch (error) {
+            console.error('Error toastrNotify () => ', error);
+        }
+    };
 
     const retrieveTokenAndUserId = async (tk, userId) => {
         try {
@@ -37,29 +56,48 @@ export default (props) => {
     };
 
     const handleUserEdit = async (payload) => {
-        const { data } = await axios.post('api/fake-data/edit-user', {
-            payload,
-        });
-        let userIndex = users.findIndex((user) => user._id == data.user._id);
-        const updatedUsers = [...users];
-        updatedUsers[userIndex] = data.user;
-        await setUsers(updatedUsers);
-        handleCustomModalEditOpen();
+        try {
+            const { data } = await axios.post('api/fake-data/edit-user', {
+                payload,
+            });
+            let userIndex = users.findIndex(
+                (user) => user._id == data.user._id
+            );
+            const updatedUsers = [...users];
+            updatedUsers[userIndex] = data.user;
+            await setUsers(updatedUsers);
+            toastrNotify('Edit User Succesfull', 'success');
+            handleCustomModalEditOpen();
+        } catch (error) {
+            toastrNotify('No Data for Edit User', 'error');
+            console.error('handleUserEdit() => ', error);
+        }
     };
 
     const handleCustomModalEditOpen = () => {
         setCustomModalEditOpen(!customModalEditOpen);
     };
 
-    const handleLogout = async () => {
+    const handleLogout = async (usingUseEffect = false) => {
         try {
+            if (!usingUseEffect) {
+                toastrNotify('Bye bye! See ya!', 'success');
+            }
             localStorage.removeItem('token');
             localStorage.removeItem('userId');
+            localStorage.removeItem('expiryDate');
             await setToken('');
             await setUserId('');
+            await setExpiryDate('');
         } catch (error) {
             console.error('logout() => ', error);
         }
+    };
+
+    const setAutoLogout = (milliseconds) => {
+        setTimeout(() => {
+            handleLogout(true);
+        }, milliseconds);
     };
 
     return (
@@ -73,6 +111,7 @@ export default (props) => {
                 handleLogout: handleLogout,
                 customModalEditOpen: customModalEditOpen,
                 handleCustomModalEditOpen: handleCustomModalEditOpen,
+                toastrNotify: toastrNotify,
             }}
         >
             {props.children}

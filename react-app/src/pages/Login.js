@@ -28,6 +28,7 @@ const Login = ({ title, buttonTitle }) => {
         password: '',
     });
     const retrieveTokenAndUserId = useContext(Context).retrieveTokenAndUserId;
+    const toastrNotify = useContext(Context).toastrNotify;
 
     const handleOnChange = (event) => {
         const { name, value } = event.target;
@@ -42,14 +43,16 @@ const Login = ({ title, buttonTitle }) => {
             });
             setAuth({ username: '', password: '' });
             retrieveTokenAndUserId(data.token, data.userId);
+            toastrNotify('Welcome to Learn K8S & Docker APP', 'success');
             localStorage.setItem('token', data.token);
             localStorage.setItem('userId', data.userId);
-            const remainingMilliseconds = 60 * 60 * 1000;
+            const remainingMilliseconds = 100000;
             const expiryDate = new Date(
                 new Date().getTime() + remainingMilliseconds
             );
             localStorage.setItem('expiryDate', expiryDate.toISOString());
         } catch (error) {
+            toastrNotify('No Data for Submit', 'error');
             console.error('Error submit() => ', error);
         }
     };
