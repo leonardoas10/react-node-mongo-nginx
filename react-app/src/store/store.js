@@ -12,6 +12,7 @@ export const Context = React.createContext({
     customModalEditOpen: false,
     handleCustomModalEditOpen: () => {},
     toastrNotify: (message, type) => {},
+    getUsers: () => {},
 });
 
 export default (props) => {
@@ -23,7 +24,7 @@ export default (props) => {
         localStorage.getItem('expiryDate')
     );
 
-    useEffect(async () => {
+    useEffect(() => {
         try {
             if (new Date(expiryDate) <= new Date()) {
                 console.log('leo');
@@ -31,12 +32,20 @@ export default (props) => {
             } else {
                 setAutoLogout(expiryDate);
             }
-            const { data } = await axios.get('/api/fake-data');
-            await setUsers(data.fakeData);
+            getUsers();
         } catch (error) {
             console.error('Error => ', error);
         }
     }, []);
+
+    const getUsers = async () => {
+        try {
+            const { data } = await axios.get('/api/fake-data');
+            await setUsers(data.fakeData);
+        } catch (error) {
+            console.error('Error getUsers() => ', error);
+        }
+    };
 
     const toastrNotify = (message, type) => {
         try {
@@ -103,15 +112,16 @@ export default (props) => {
     return (
         <Context.Provider
             value={{
-                users: users,
-                token: token,
-                userId: userId,
-                retrieveTokenAndUserId: retrieveTokenAndUserId,
-                handleUserEdit: handleUserEdit,
-                handleLogout: handleLogout,
-                customModalEditOpen: customModalEditOpen,
-                handleCustomModalEditOpen: handleCustomModalEditOpen,
-                toastrNotify: toastrNotify,
+                users,
+                token,
+                userId,
+                retrieveTokenAndUserId,
+                handleUserEdit,
+                handleLogout,
+                customModalEditOpen,
+                handleCustomModalEditOpen,
+                toastrNotify,
+                getUsers,
             }}
         >
             {props.children}

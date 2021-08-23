@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
             cursor: 'pointer',
         },
     },
+    ListItem: {
+        '&:hover': {
+            cursor: 'pointer',
+        },
+    },
     MenuItem: {
         textTransform: 'capitalize',
     },
@@ -48,6 +53,7 @@ const NavBar = () => {
     const [userInfo, setUserInfo] = useState([]);
     const handleLogout = useContext(Context).handleLogout;
     const userId = useContext(Context).userId;
+    const getUsers = useContext(Context).getUsers;
 
     useEffect(async () => {
         try {
@@ -92,7 +98,10 @@ const NavBar = () => {
                     >
                         <Drawer open={drawer} onClose={toggleDrawer}>
                             <List>
-                                <ListItem>
+                                <ListItem
+                                    className={classes.ListItem}
+                                    onClick={getUsers}
+                                >
                                     <ListItemIcon>
                                         <PersonIcon></PersonIcon>
                                     </ListItemIcon>
