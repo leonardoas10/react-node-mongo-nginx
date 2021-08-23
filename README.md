@@ -2,12 +2,13 @@
 
 ## Descripción
 
--   Es una app que nace con el fin de practicar la dockerizacion y la orquestacion
--   La app esta compuesta de ReactJs - NodeJS - Mongo - Nginx - Docker - K8S
+-   Es una app que nace con el fin de practicar la dockerizacion, la orquestacion y el CI/CD.
+-   La app esta compuesta de ReactJs - NodeJS - Mongo - Nginx - Docker - K8S - CI/CD
 -   Se puede correr la app con `docker-compose` y/o `minikube`
 -   Al correrla con `docker-compose` cuenta con un contenedor Nginx con el objectivo de hacer `reverse-proxy` hacia los contenedores ReactJs o NodeJs; de esta manera se asegura la convivencia de los distintos request, bien sea con `docker-compose` y/o `minikube`
 -   La base de dato Mongo, importa automatico bien sea en el `docker-compose` y/o `minikube`, datos de prueba.
 -   Al usar minikube, se puede tener acceso al [ Kubernetes Dashboard ](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/), en el se puede visualizar todos los services, pods, namespaces, configmap, dinamicas, etc... se puede utilizar el boton 'skip' para saltarse el token del login.
+-   El CI/CD se utiliza con github actions, el cual cumple la funcion de hacer login en dockerhub y actualizar las imagenes, siempre y cuando exista cambio en la carpeta respectiva.
 
 ## Instalación - Docker-Compose
 
@@ -45,12 +46,13 @@
 
 ## Description
 
--   It is an app that was created in order to practice dockerization and orchestration
--   The app is made up of ReactJs - NodeJS - Mongo - Nginx - Docker - K8S
+-   It is an app that was created in order to practice dockerization and orchestration CI/CD.
+-   The app is made up of ReactJs - NodeJS - Mongo - Nginx - Docker - K8S - CI/CD
 -   You can run the application with `docker-compose` and / or` minikube`
 -   When running with `docker-compose` it has an Nginx container with the objective of doing` reverse-proxy` towards the ReactJs or NodeJs containers; in this way the coexistence of the different requests is ensured, either with `docker-compose` and / or` minikube`
 -   The Mongo database, imports automatically either in the `docker-compose` and / or` minikube`, test data.
 -   By using minikube, you can access the [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/), where you can view all the services, pods, namespaces, configmap, dynamics, etc ... you can use the 'skip' button to skip the login token.
+-   The CI / CD is used with github actions, which fulfills the function of logging into dockerhub and updating the images, as long as there is a change in the respective folder.
 
 ## Instalation - Docker-Compose
 
@@ -104,3 +106,6 @@ Kubernetes Dashboard - Pods.
 
 Kubernetes Dashboard - Describe a Pod.
 ![](images/kbdescribepod.png)
+
+CI/CD - Github Action
+![](images/cicd.png)
